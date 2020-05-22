@@ -1,5 +1,5 @@
 import React from 'react';
-import { ROUTE } from '../../route'
+import { ROUTE } from '../../constants'
 
 
 const Register = ({ onRouteChange }) => {

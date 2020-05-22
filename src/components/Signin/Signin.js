@@ -1,5 +1,5 @@
 import React from 'react';
-import { ROUTE } from '../../route'
+import { ROUTE } from '../../constants'
 
 
 const Signin = ({ onRouteChange }) => {
@@ -24,7 +24,7 @@ const Signin = ({ onRouteChange }) => {
                             onClick={() => onRouteChange(ROUTE.home)} value="Sign in" />
                     </div>
                     <div className="lh-copy mt3">
-                        <p onClick={() => onRouteChange('register')} 
+                        <p onClick={() => onRouteChange(ROUTE.register)} 
                         href="#0" className="f6 link dim black db pointer">Register</p>
                     </div>
                 </div>
