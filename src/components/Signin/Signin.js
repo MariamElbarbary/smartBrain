@@ -1,4 +1,5 @@
 import React from 'react';
+import { ROUTE } from '../../route'
 
 
 const Signin = ({ onRouteChange }) => {
@@ -20,7 +21,7 @@ const Signin = ({ onRouteChange }) => {
                     <div className="">
                         <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
                             type="submit" 
-                            onClick={() => onRouteChange('home')} value="Sign in" />
+                            onClick={() => onRouteChange(ROUTE.home)} value="Sign in" />
                     </div>
                     <div className="lh-copy mt3">
                         <p onClick={() => onRouteChange('register')} 
