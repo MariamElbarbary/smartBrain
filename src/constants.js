@@ -16,3 +16,18 @@ export const PARTICLESOPTIONS = {
         }
     }
 }
+
+export const INITIALSTATE = {
+    input: '',
+    imageUrl: '',
+    box: {},
+    route: ROUTE.signin,
+    isSignedIn: false,
+    user: {
+        id: '',
+        email: '',
+        name: '',
+        entries: 0,
+        joined: '',
+    }
+}

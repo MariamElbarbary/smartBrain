@@ -8,28 +8,14 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm'
 import FaceRecognition from './components/FaceRecognition/FaceRecognition'
 import Signin from './components/Signin/Signin'
 import Register from './components/Register/Register'
-import { ROUTE, PARTICLESOPTIONS } from './constants'
+import { ROUTE, PARTICLESOPTIONS, INITIALSTATE } from './constants'
 import ClarifaiApp from './ClarifaiApi'
 
-const initalState = {
-  input: '',
-  imageUrl: '',
-  box: {},
-  route: ROUTE.signin,
-  isSignedIn: false,
-  user: {
-    id: '',
-    email: '',
-    name: '',
-    entries: 0,
-    joined: '',
-  }
-}
 
 class App extends Component {
   constructor() {
     super();
-    this.state = initalState;
+    this.state = INITIALSTATE;
   }
 
   loadUser = (data) => {
@@ -59,7 +45,7 @@ class App extends Component {
 
   onRouteChange = (routeConfig) => {
     if (routeConfig === ROUTE.signout) {
-      this.setState(initalState);
+      this.setState(INITIALSTATE);
     }
     else if (routeConfig === ROUTE.home) {
       this.setState({ isSignedIn: true });
