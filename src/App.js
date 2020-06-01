@@ -88,28 +88,25 @@ class App extends Component {
           .then(response => response.json())
           .then(count => this.setState(Object.assign(this.state.user, { entries: count })))
           .catch(console.log);
-          
+
         this.displayFaceBox(this.calculateFaceLocation(response))
       })
       .catch(err => console.log(err))
   }
 
-  homePage = () => {
-    console.log(this.state.user)
-    return (<div>
-      <Logo />
-      <Rank name={this.state.user.name} entries={this.state.user.entries} />
-      <ImageLinkForm
-        onInputChange={this.onInputChange}
-        onButtonSubmit={this.onButtonSubmit} />
-      <FaceRecognition imageUrl={this.state.imageUrl} box={this.state.box} />
-    </div>);
-  }
-
   renderRoute = () => {
     switch (this.state.route) {
       case ROUTE.home:
-        return this.homePage();
+        return (
+          <div>
+            <Logo />
+            <Rank name={this.state.user.name} entries={this.state.user.entries} />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit} />
+            <FaceRecognition imageUrl={this.state.imageUrl} box={this.state.box} />
+          </div>
+        );
       case ROUTE.register:
         return <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
       default:
