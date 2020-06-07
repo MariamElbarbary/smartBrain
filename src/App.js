@@ -9,7 +9,6 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition'
 import Signin from './components/Signin/Signin'
 import Register from './components/Register/Register'
 import { ROUTE, PARTICLESOPTIONS, INITIALSTATE } from './constants'
-import ClarifaiApp from './ClarifaiApi'
 
 
 class App extends Component {
@@ -29,12 +28,13 @@ class App extends Component {
       }
     });
   }
-  calculateFaceLocation = (data) => {
+  calculateFaceLocation = (data) =>  {
     const clarifaiFace = data['outputs'][0]['data']['regions'][0].region_info.bounding_box;
     const image = document.getElementById('inputImage');
     const width = Number(image.width)
     const height = Number(image.height)
 
+    console.log('return', height)
     return {
       leftCol: clarifaiFace.left_col * width,
       rightCol: width - (clarifaiFace.right_col * width),
@@ -42,7 +42,6 @@ class App extends Component {
       bottomRow: height - (clarifaiFace.bottom_row * height),
     }
   }
-
   onRouteChange = (routeConfig) => {
     if (routeConfig === ROUTE.signout) {
       this.setState(INITIALSTATE);
@@ -64,18 +63,18 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input })
 
-    ClarifaiApp.faceDetectionApi(this.state.input)
+    fetch('http://localhost:3000/image', {
+      method: 'put',
+      headers: { 'content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: this.state.user.id,
+        img: this.state.input
+      })
+    })
+      .then(response => response.json())
       .then(response => {
-        fetch('http://localhost:3000/image', {
-          method: 'put',
-          headers: { 'content-Type': 'application/json' },
-          body: JSON.stringify({ id: this.state.user.id })
-        })
-          .then(response => response.json())
-          .then(count => this.setState(Object.assign(this.state.user, { entries: count })))
-          .catch(console.log);
-
-        this.displayFaceBox(this.calculateFaceLocation(response))
+        this.setState(Object.assign(this.state.user, { entries: response.count }))
+        this.displayFaceBox(this.calculateFaceLocation(response.box))
       })
       .catch(err => console.log(err))
   }
